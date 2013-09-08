@@ -1,0 +1,32 @@
+{
+  "name": "nuco",
+  "version": "0.1.0",
+  "description": "light weight process manager for node",
+  "main": "lib/nuco.js",
+  "bin": {
+    "neco": "./bin/nuco"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/geta6/nuco"
+  },
+  "keywords": [
+    "supervisor",
+    "forever",
+    "cluster",
+    "process"
+  ],
+  "dependencies": {
+    "commander": "*",
+    "coffee-script": "*",
+    "stylus": "*",
+    "uglify-js": "*",
+    "sqwish": "*"
+  },
+  "author": "geta6",
+  "license": "MIT",
+  "readme": "http://geta6.github.io/nuco/",
+  "bugs": {
+    "url": "https://github.com/geta6/nuco/issues"
+  }
+}

@@ -1,0 +1,25 @@
+#!/usr/bin/env node
+
+var path = require('path')
+  , opts = require('commander')
+  , nuco = require('../lib/nuco.js');
+
+opts
+  .version(require('../package.json').version)
+  .usage('[options] <file>')
+  .option('-b, --bar', 'show bar')
+  .option('-e, --env [string]', 'set NODE_ENV')
+  .option('-p, --port [int]', 'set PORT')
+  .option('-f, --forks [int]', 'concurrent process')
+  .option('-c, --color', 'colorize log')
+  .option('-w, --watch', 'watch code change')
+  .option('-a, --asset [path]', 'asset path')
+  .parse(process.argv);
+
+if (!opts.args[0]) {
+  opts.help();
+  process.exit();
+}
+
+nuco(opts.args[0], opts);
+
