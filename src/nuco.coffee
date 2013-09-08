@@ -133,11 +133,23 @@ nuco = (main, options = {}) ->
     if options.asset
       srcpath = path.resolve options.asset
       dstpath = path.resolve 'public'
+      find = (name) ->
+        file = "./node_modules/.bin/#{name}"
+        return file if fs.existsSync file
+        file = "./node_modules/nuco/.bin/#{name}"
+        return file if fs.existsSync file
+        file = "../.bin/#{name}"
+        return file if fs.existsSync file
+        return name
+
       bin =
-        coffee: './node_modules/.bin/coffee'
-        stylus: './node_modules/.bin/stylus'
-        uglify: './node_modules/.bin/uglifyjs'
-        sqwish: './node_modules/.bin/sqwish'
+        coffee: find 'coffee'
+        stylus: find 'stylus'
+        uglify: find 'uglifyjs'
+        sqwish: find 'sqwish'
+
+      exec 'ls', (err, stout)->
+        console.log stout
 
       compile = (src) ->
         ini = new Date
