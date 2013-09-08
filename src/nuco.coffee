@@ -55,14 +55,17 @@ nuco = (main, options = {}) ->
       return msg
 
     process.stdout.write = ->
-      if 80 is arguments.callee.caller.toString().length
+      if arguments.callee.caller.toString? and 80 is arguments.callee.caller.toString().length
         arguments[0] = "#{message()}| \x1b[0m#{arguments[0]}"
       else
         arguments[0] = "#{message()}|  \x1b[0m#{arguments[0]}"
       stdout.apply @, arguments
 
     process.stderr.write = ->
-      arguments[0] = "#{message()}\x1b[0m| #{arguments[0]}"
+      if arguments.callee.caller.toString? and 80 is arguments.callee.caller.toString().length
+        arguments[0] = "#{message()}| \x1b[0m#{arguments[0]}"
+      else
+        arguments[0] = "#{message()}|  \x1b[0m#{arguments[0]}"
       stderr.apply @, arguments
 
   # Colorize
