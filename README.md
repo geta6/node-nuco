@@ -52,8 +52,8 @@ nuco('./app.js', {
 
 ```
 
-key     | value type |
---------|------------|---
+key     | value type | detail
+--------|------------|--------
 `bar`   | Boolean    | show bar
 `env`   | String     | set NODE_ENV
 `port`  | Number     | set PORT
