@@ -6,6 +6,7 @@ path = require 'path'
 util = require 'util'
 {exec} = require 'child_process'
 cluster = require 'cluster'
+coffee = require 'coffee-script'
 
 seek = (dir, type = 'd', only = /.*/, save = /^(\.|node_modules|public)/) ->
   res = []

@@ -1,6 +1,6 @@
 {
   "name": "nuco",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "light weight process manager for node",
   "main": "lib/nuco.js",
   "bin": {
