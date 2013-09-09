@@ -102,8 +102,10 @@ nuco = (main, options = {}) ->
     cluster.on 'exit', (worker) ->
       console.warn 'worker exit'
       for worker, i in workers
-        unless worker
-          workers[i] = cluster.fork({__nucoenv: "worker.#{i+1}"}).process.pid
+        try
+          process.kill worker
+        delete workers[i]
+        workers[i] = cluster.fork({__nucoenv: "worker.#{i+1}"}).process.pid
 
     options.forks = parseInt options.forks
     options.forks = os.cpus().length unless options.forks
@@ -120,7 +122,8 @@ nuco = (main, options = {}) ->
       process.on 'nuco::restart', ->
         for worker, i in workers when worker
           delete workers[i]
-          process.kill worker
+          try
+            process.kill worker
 
       save = /^(\.|node_modules|public)/
       if options.asset
@@ -189,7 +192,10 @@ nuco = (main, options = {}) ->
     return
 
   # Main
-  require path.resolve main
+  try
+    require path.resolve main
+  catch
+    process.exit()
 
 nuco.isnuco = nuco.isNuco = ->
   return process.env.__nucoenv?
