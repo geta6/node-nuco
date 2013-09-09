@@ -121,9 +121,12 @@ nuco = (main, options = {}) ->
 
       process.on 'nuco::restart', ->
         for worker, i in workers when worker
-          delete workers[i]
-          try
-            process.kill worker
+          do (worker, i) ->
+            setTimeout ->
+              delete workers[i]
+              try
+                process.kill worker
+            , 1000
 
       save = /^(\.|node_modules|public)/
       if options.asset
@@ -195,7 +198,9 @@ nuco = (main, options = {}) ->
   try
     require path.resolve main
   catch
-    process.exit()
+    setTimeout ->
+      process.exit()
+    , 1000
 
 nuco.isnuco = nuco.isNuco = ->
   return process.env.__nucoenv?
